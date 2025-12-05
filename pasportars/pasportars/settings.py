@@ -21,10 +21,16 @@ SECRET_KEY = os.getenv(
 )
 
 # DEBUG берём из env, по умолчанию True (локальная разработка)
+# На Render в переменных окружения поставь DEBUG=False
 DEBUG = os.getenv("DEBUG", "True") == "True"
 
-# ALLOWED_HOSTS: локальные + из env DJANGO_ALLOWED_HOSTS
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+# ALLOWED_HOSTS: локальные + Render-домен + из env DJANGO_ALLOWED_HOSTS
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    "licdrive.onrender.com",  # домен Render
+]
+
 extra_hosts = os.getenv("DJANGO_ALLOWED_HOSTS")
 if extra_hosts:
     ALLOWED_HOSTS += [h.strip() for h in extra_hosts.split(",") if h.strip()]
@@ -82,8 +88,6 @@ WSGI_APPLICATION = "pasportars.wsgi.application"
 
 
 # ============== БАЗА ДАННЫХ ==============
-# Для Render сейчас остаётся sqlite3 (диск там персистентный для Web Service).
-# Потом можно вынести в PostgreSQL.
 
 DATABASES = {
     "default": {
