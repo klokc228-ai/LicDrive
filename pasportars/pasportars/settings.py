@@ -25,11 +25,7 @@ SECRET_KEY = os.getenv(
 DEBUG = os.getenv("DEBUG", "True") == "True"
 
 # ALLOWED_HOSTS: локальные + Render-домен + из env DJANGO_ALLOWED_HOSTS
-ALLOWED_HOSTS = [
-    "127.0.0.1",
-    "localhost",
-    "licdrive.onrender.com",  # домен Render
-]
+ALLOWED_HOSTS = ["*"]
 
 extra_hosts = os.getenv("DJANGO_ALLOWED_HOSTS")
 if extra_hosts:
